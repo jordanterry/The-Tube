@@ -1,7 +1,49 @@
+import algorithms.DepthFirstSearchImpl
+import graphs.AdjacencyGraph
+import graphs.Graph
+
 fun main(args: Array<String>) {
 
+    val graph = Graph<Station>().apply {
+        districtLine(this)
+    }
 
-    val graph = AdjacencyListGraph<Station>().apply {
+    println(graph)
+
+    val dfs = DepthFirstSearchImpl(graph)
+    dfs.dfs("Wimbledon".toStation(), "Victoria".toStation())
+}
+
+fun districtLine(graph: Graph<Station>) {
+    with(graph) {
+        val districtLineStations = listOf(
+            "Wimbledon",
+            "Wimbledon Park",
+            "Southfields",
+            "East Putney",
+            "Putney Bridge",
+            "Parsons Green",
+            "Fulham Broadway",
+            "West Brompton",
+            "Earls Court",
+            "Gloucester Road",
+            "South Kensington",
+            "Sloane Square",
+            "Victoria",
+            "St James's Park",
+            "Westminster",
+            "West Kensington",
+            "Ravenscourt Park",
+            "Stamford Brook",
+            "Turnham Green",
+            "Gunnersby",
+            "Kew Gardens",
+            "Richmond",
+            "High Street Kensington",
+            "Olympia"
+        ).forEach { station ->
+            addVertex(station.toStation())
+        }
         addEdge("Wimbledon".toStation(), "Wimbledon Park".toStation())
         addEdge("Wimbledon Park".toStation(), "Southfields".toStation())
         addEdge("Southfields".toStation(), "East Putney".toStation())
@@ -32,13 +74,7 @@ fun main(args: Array<String>) {
         // Paddington
         addEdge("Earls Court".toStation(), "Olympia".toStation())
     }
-
-    println(graph)
-
-    val dfs = DepthFirstSearchImpl(graph)
-    dfs.dfs("Wimbledon".toStation(), "Victoria".toStation())
 }
-
 
 
 fun String.toStation(): Station = Station(this)
@@ -49,4 +85,3 @@ data class Station(
         return name
     }
 }
-
